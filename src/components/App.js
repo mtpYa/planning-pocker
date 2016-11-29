@@ -7,8 +7,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1 className="test-style"> Hellllloooo woooooorld </h1>
+      <div >
+        <h1 className="test-style"> Hello world </h1>
       </div>
     );
   }
