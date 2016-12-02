@@ -1,0 +1,42 @@
+{
+  "name": "planning-pocker",
+  "version": "1.0.0",
+  "description": "gamified technique for estimating development goals in software development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtpYa/planning-pocker.git"
+  },
+  "keywords": [
+    "planning",
+    "scrum",
+    "poker"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mtpYa/planning-pocker/issues"
+  },
+  "homepage": "https://github.com/mtpYa/planning-pocker#readme",
+  "dependencies": {
+    "babel-polyfill": "^6.16.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-redux": "^4.4.6",
+    "redux": "^3.6.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "css-loader": "^0.26.0",
+    "node-sass": "^3.13.0",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.3"
+  }
+}
