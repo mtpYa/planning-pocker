@@ -3,8 +3,9 @@ var passport = require('passport');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var Account = require('./mongoose.conf').Account;
 
-require('./passport.conf')(passport);
+require('./passport.conf')(passport, Account);
 
 var app = express();
 

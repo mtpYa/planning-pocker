@@ -1,29 +1,25 @@
-module.exports = function (passport) {
+module.exports = function (passport, Account) {
   var LocalStrategy = require('passport-local').Strategy;
 
-  var users = require('./users.json');
-
   passport.use(new LocalStrategy((username, password, done) => {
-    var user;
-    users.forEach(usr => {
-      if (usr.name === username && usr.password === password) {
-        user = {
-          name: usr.name,
-          password: usr.password
-        }
+    Account.findOne({ name: username, password: password }, (err, user) => {
+      if (err) {
+        return done(err);
       }
+      if (!user) {
+        return done(null, false);
+      }
+      return done(null, user);
     });
-    if (!user) {
-      return done(null, false);
-    }
-    return done(null, user);
   }));
 
   passport.serializeUser((user, done) => {
-    done(null, user);
+    done(null, user.id);
   });
 
-  passport.deserializeUser((user, done) => {
-    done(null, user);
+  passport.deserializeUser((id, done) => {
+    Account.findById(id, (err, user) => {
+      done(err, user);
+    });
   });
 }
