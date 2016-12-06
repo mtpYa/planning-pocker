@@ -1,69 +1,49 @@
 import React from 'react';
 import request from 'superagent';
+import Button from './formElements/Button.js';
+import Input from './formElements/Input.js';
 
 class App extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
-      name: '',
-      pass: '',
-      loginInfo: ''
+      value: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(e) {
-    if (e.target.name === 'name') {
-      this.setState({
-        name: e.target.value
-      });
-    } else {
-      this.setState({
-        pass: e.target.value
-      });
-    }
+    this.setState({value: e.target.value})
   }
 
-  handleSubmit(e) {
+  handleClick(e) {
     e.preventDefault();
-
-    request
-      .post('/login')
-      .send({ username: this.state.name, password: this.state.pass })
-      .end((err, res) => {
-        this.setState({
-          loginInfo: 'You are logged as ' + res.body.name
-        });
-      });
+    console.log(this.state.value)
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={this.state.name}
-            onChange={this.handleChange}
-            />
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={this.state.pass}
-            onChange={this.handleChange}
-            />
-          <input type="submit" value="Submit" />
-        </form>
-        <h2>{this.state.loginInfo}</h2>
+        <Input
+          placeholder="enter room name"
+          name="room-name"
+          type="text"
+          value={this.state.value}
+          onChangeHandler={this.handleChange}
+        />
+        <Button
+          value="Create Room"
+          type="submit"
+          onHandleClick={this.handleClick}
+        />
       </div>
     );
   }
+
 }
 
 export default App;
