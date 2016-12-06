@@ -1,13 +1,13 @@
-var express = require('express');
-var passport = require('passport');
-var morgan = require('morgan');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var Account = require('./mongoose.conf').Account;
+const express = require('express');
+const passport = require('passport');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const Account = require('./mongoose.conf').Account;
 
 require('./passport.conf')(passport, Account);
 
-var app = express();
+const app = express();
 
 app.use(morgan('tiny'));
 

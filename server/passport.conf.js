@@ -1,5 +1,5 @@
 module.exports = function (passport, Account) {
-  var LocalStrategy = require('passport-local').Strategy;
+  const LocalStrategy = require('passport-local').Strategy;
 
   passport.use(new LocalStrategy((username, password, done) => {
     Account.findOne({ name: username, password: password }, (err, user) => {

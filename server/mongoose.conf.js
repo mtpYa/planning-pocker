@@ -1,6 +1,6 @@
-var mongoose = require('mongoose').set('debug', true);
+const mongoose = require('mongoose').set('debug', true);
 
-var options = {
+const options = {
   server: {
     socketOptions: {
       keepAlive: 300000,
@@ -15,20 +15,20 @@ var options = {
   }
 };
 
-var mongodbUri = 'mongodb://pockerUser:pockerUser@ds119578.mlab.com:19578/planning-pocker';
+const mongodbUri = 'mongodb://pockerUser:pockerUser@ds119578.mlab.com:19578/planning-pocker';
 
 mongoose.connect(mongodbUri, options);
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
-var accountSchema = mongoose.Schema({
+const accountSchema = mongoose.Schema({
   name: String,
   password: String
 });
 
-var Account = mongoose.model('Account', accountSchema);
+const Account = mongoose.model('Account', accountSchema);
 
 module.exports = {
   Account
