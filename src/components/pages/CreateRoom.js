@@ -1,8 +1,8 @@
 import React from 'react';
 import request from 'superagent';
-import { Router, Route, Link, hashHistory, browserHistory } from 'react-router'
-import Button from './formElements/Button.js';
-import Input from './formElements/Input.js';
+import { hashHistory } from 'react-router';
+import Button from '../forms/Button.js';
+import Input from '../forms/Input.js';
 
 class CreateRoom extends React.Component {
 
@@ -23,7 +23,7 @@ class CreateRoom extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    console.log(this.state.value)
+    hashHistory.push('room');
   }
 
   render() {
@@ -42,7 +42,7 @@ class CreateRoom extends React.Component {
           onHandleClick={this.handleClick}
         />
       </div>
-    );
+    )
   }
 
 }

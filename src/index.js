@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './components/App';
-import Room from './components/Room';
-import CreateRoom from './components/CreateRoom';
+import Room from './components/pages/Room';
+import CreateRoom from './components/pages/CreateRoom';
 import './styles/main.scss';
 
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={App}>
-      <Route path="create-room" component={CreateRoom}/>
-      <Route path="room" component={Room}/>
+      <IndexRoute component={CreateRoom} />
+      <Route path="create-room" component={CreateRoom} />
+      <Route path="room" component={Room} />
+      <Route path="*" component={CreateRoom} />
     </Route>
   </Router>,
   document.getElementById('root')
