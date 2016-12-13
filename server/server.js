@@ -28,6 +28,10 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
   res.send(req.user);
 });
 
+app.post('/newroom', (req, res) => {
+  res.send(req.body);
+});
+
 app.listen(3000, () => {
   console.log('Server is listening on port 3000')
 });

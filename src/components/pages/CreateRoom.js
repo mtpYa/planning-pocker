@@ -1,6 +1,9 @@
 import React from 'react';
-import request from 'superagent';
+import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
+
+import roomActions from '../../actions/roomActions';
+
 import Button from '../forms/Button.js';
 import Input from '../forms/Input.js';
 
@@ -23,7 +26,8 @@ class CreateRoom extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    hashHistory.push('room');
+    this.props.createRoom({name: this.state.value});
+    // hashHistory.push('room');
   }
 
   render() {
@@ -47,4 +51,18 @@ class CreateRoom extends React.Component {
 
 }
 
-export default CreateRoom;
+function mapStateToProps(state) {
+  return {
+    rooms: state.room.rooms
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createRoom(newRoom) {
+      dispatch(roomActions.createRoomAsync(newRoom));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateRoom);
