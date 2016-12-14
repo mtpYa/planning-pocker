@@ -1,3 +1,4 @@
 export default {
-  CREATE_ROOM: 'CREATE_ROOM'
+  CREATE_ROOM: 'CREATE_ROOM',
+  CREATE_USER: 'CREATE_USER'
 }

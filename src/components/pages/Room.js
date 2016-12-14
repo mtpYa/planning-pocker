@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 let socket;
 
+import ModuleUserCreate from '../layouts/ModuleUserCreate.js';
+
 class Room extends React.Component {
 
   componentDidMount() {
@@ -15,7 +17,10 @@ class Room extends React.Component {
 
   render() {
     return (
-      <h1>Room: {this.props.room.name}</h1>
+      <div>
+        <h1>Room: {this.props.room.name}</h1>
+        <ModuleUserCreate />
+      </div>
     )
   }
 
