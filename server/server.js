@@ -10,6 +10,9 @@ require('./passport.conf')(passport, Account);
 
 const app = express();
 
+const server = require('http').Server(app);
+require('./sockets')(server);
+
 app.use(morgan('tiny'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -45,6 +48,6 @@ app.use((err, req, res, next) => {
   res.status(500).send('Error: ' + err.stack);
 })
 
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log('Server is listening on port 3000')
 });
