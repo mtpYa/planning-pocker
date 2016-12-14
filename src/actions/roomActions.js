@@ -11,7 +11,7 @@ function createRoom(room) {
 function createRoomAsync(newRoom) {
   return (dispatch) => {
     return RoomApi.createRoom(newRoom)
-      .then(data => dispatch(createRoom(data.room)))
+      .then(data => dispatch(createRoom(data)))
       .catch(err => console.log(err));
   };
 }

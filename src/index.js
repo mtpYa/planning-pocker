@@ -17,7 +17,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={CreateRoom} />
         <Route path="create-room" component={CreateRoom} />
-        <Route path="room" component={Room} />
+        <Route path="room/:roomId" component={Room} />
         <Route path="*" component={CreateRoom} />
       </Route>
     </Router>

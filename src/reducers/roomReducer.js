@@ -1,13 +1,13 @@
 import ActionTypes from '../constants/ActionTypes';
 
 let initialState = {
-  rooms: []
+  currRoom: {}
 };
 
 function roomReducer(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.CREATE_ROOM:
-      return Object.assign({}, state, {rooms: [...state.rooms, action.room]});
+      return Object.assign({}, state, {currRoom: action.room});
     default:
       return state;
   }

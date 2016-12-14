@@ -20,6 +20,12 @@ class CreateRoom extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentWillUpdate(nextProps) {
+    if (nextProps.room._id) {
+      hashHistory.push('room/' + nextProps.room._id);
+    }
+  }
+
   handleChange(e) {
     this.setState({value: e.target.value})
   }
@@ -27,7 +33,6 @@ class CreateRoom extends React.Component {
   handleClick(e) {
     e.preventDefault();
     this.props.createRoom({name: this.state.value});
-    // hashHistory.push('room');
   }
 
   render() {
@@ -53,7 +58,7 @@ class CreateRoom extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    rooms: state.room.rooms
+    room: state.room.currRoom
   };
 }
 

@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const Account = require('./mongoose.conf').Account;
+const Room = require('./mongoose.conf').Room;
 
 require('./passport.conf')(passport, Account);
 
@@ -28,9 +29,21 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
   res.send(req.user);
 });
 
-app.post('/newroom', (req, res) => {
-  res.send(req.body);
+app.post('/newroom', (req, res, next) => {
+  var newRoom = new Room(req.body.room);
+  newRoom.save((err, createdRoom) => {
+    if (err) {
+      next(err);
+    } else {
+      res.send(createdRoom);
+    }
+  });
 });
+
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Error: ' + err.stack);
+})
 
 app.listen(3000, () => {
   console.log('Server is listening on port 3000')
