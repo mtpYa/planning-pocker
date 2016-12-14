@@ -30,6 +30,13 @@ const accountSchema = mongoose.Schema({
 
 const Account = mongoose.model('Account', accountSchema);
 
+const roomSchema = mongoose.Schema({
+  name: String
+});
+
+const Room = mongoose.model('Room', roomSchema);
+
 module.exports = {
-  Account
+  Account,
+  Room
 };
