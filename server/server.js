@@ -44,6 +44,20 @@ app.post('/newroom', (req, res, next) => {
   });
 });
 
+app.get('/allusers/:id', (req, res, next) => {
+  console.log(req.params.id)
+  var roomId = req.params.id;
+
+  Room.findById(roomId, function(err, room) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      console.log(room.users);
+      res.send(room.users);
+    }
+  });
+});
+
 app.post('/newuser', (req, res, next) => {
   Room.findById(req.body.user.roomId, function(err, room) {
     if (err) {
@@ -64,7 +78,7 @@ app.post('/newuser', (req, res, next) => {
           }
       });
     }
-    console.log(room)
+    // console.log(room)
   });
 });
 

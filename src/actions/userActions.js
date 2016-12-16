@@ -8,6 +8,13 @@ function createUser(user) {
   }
 }
 
+function getUsers(users) {
+  return {
+    type: ActionTypes.GET_USERS,
+    users
+  }
+}
+
 function createUserAsync(newUser) {
   return (dispatch) => {
     return RoomApi.createUser(newUser)
@@ -16,6 +23,15 @@ function createUserAsync(newUser) {
   };
 }
 
+function getUsersAsync(roomId) {
+  return (dispatch) => {
+    return RoomApi.getUsers(roomId)
+      .then(data => dispatch(getUsers(data)))
+      .catch(err => console.log(err));
+  };
+}
+
 export default {
-  createUserAsync
+  createUserAsync,
+  getUsersAsync
 }

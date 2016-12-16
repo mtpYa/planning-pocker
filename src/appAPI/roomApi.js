@@ -20,7 +20,13 @@ function createUser(user) {
     .then(response => response.json());
 }
 
+function getUsers(roomId) {
+  return fetch('/allusers/' + roomId)
+    .then(response => response.json());
+}
+
 export default {
   createRoom,
-  createUser
+  createUser,
+  getUsers
 }

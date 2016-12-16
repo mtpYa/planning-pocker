@@ -33,8 +33,7 @@ class ModuleUserCreate extends React.Component {
   }
 
   render() {
-    return this.props.user.name
-    ? null : (
+    return (
       <div>
         <Input
           placeholder="enter your name"
@@ -54,12 +53,6 @@ class ModuleUserCreate extends React.Component {
 
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.user.currUser,
-  };
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     createUser(newUser) {
@@ -68,4 +61,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModuleUserCreate);
+export default connect(null, mapDispatchToProps)(ModuleUserCreate);
