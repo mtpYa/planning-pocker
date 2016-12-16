@@ -58,6 +58,18 @@ app.get('/allusers/:id', (req, res, next) => {
   });
 });
 
+app.get('/oldroom/:id', (req, res, next) => {
+  console.log(req.params.id)
+
+  Room.findById(req.params.id, function(err, oldRoom) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(oldRoom);
+    }
+  });
+});
+
 app.post('/newuser', (req, res, next) => {
   Room.findById(req.body.user.roomId, function(err, room) {
     if (err) {

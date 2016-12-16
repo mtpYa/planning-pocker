@@ -7,6 +7,7 @@ let socket;
 import ModuleUserCreate from '../layouts/ModuleUserCreate';
 import UserList from '../layouts/UserList';
 import userActions from '../../actions/userActions';
+import roomActions from '../../actions/roomActions';
 
 class Room extends React.Component {
 
@@ -24,7 +25,7 @@ class Room extends React.Component {
   componentWillMount() {
     console.log(this.props.location.query.id)
     if (!this.props.room.name) {
-      
+      this.props.getRoom(this.props.location.query.id)
     }
   }
 
@@ -60,6 +61,9 @@ function mapDispatchToProps(dispatch) {
   return {
     getUsers(roomId) {
       dispatch(userActions.getUsersAsync(roomId));
+    },
+    getRoom(roomId) {
+      dispatch(roomActions.getRoomAsync(roomId));
     }
   };
 }

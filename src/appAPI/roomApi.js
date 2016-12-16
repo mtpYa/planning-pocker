@@ -25,8 +25,14 @@ function getUsers(roomId) {
     .then(response => response.json());
 }
 
+function getRoom(roomId) {
+  return fetch('/oldroom/' + roomId)
+    .then(response => response.json());
+}
+
 export default {
   createRoom,
   createUser,
-  getUsers
+  getUsers,
+  getRoom
 }

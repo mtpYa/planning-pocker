@@ -8,6 +8,8 @@ function roomReducer(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.CREATE_ROOM:
       return Object.assign({}, state, {currRoom: action.room});
+    case ActionTypes.GET_ROOM:
+      return Object.assign({}, state, {currRoom: action.room});
     default:
       return state;
   }
