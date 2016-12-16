@@ -22,7 +22,7 @@ class CreateRoom extends React.Component {
 
   componentWillUpdate(nextProps) {
     if (nextProps.room._id) {
-      hashHistory.push('room/' + nextProps.room._id);
+      hashHistory.push({ pathname: 'room/' + nextProps.room.name, query: {id: nextProps.room._id}});
     }
   }
 

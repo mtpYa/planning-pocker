@@ -19,7 +19,7 @@ class Room extends React.Component {
     return (
       <div>
         <h1>Room: {this.props.room.name}</h1>
-        <ModuleUserCreate />
+        <ModuleUserCreate {...this.props} />
       </div>
     )
   }

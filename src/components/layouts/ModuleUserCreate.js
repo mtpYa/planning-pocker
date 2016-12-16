@@ -26,12 +26,15 @@ class ModuleUserCreate extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.createUser({name: this.state.value});
+    this.props.createUser({
+      name: this.state.value,
+      roomId: this.props.location.query.id
+    });
   }
 
   render() {
-    console.log(this.props.user)
-    return (
+    return this.props.user.name
+    ? null : (
       <div>
         <Input
           placeholder="enter your name"
@@ -53,7 +56,7 @@ class ModuleUserCreate extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user.currUser
+    user: state.user.currUser,
   };
 }
 

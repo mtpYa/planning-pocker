@@ -3,6 +3,7 @@ const passport = require('passport');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const mongoose = require('mongoose')
 const Account = require('./mongoose.conf').Account;
 const Room = require('./mongoose.conf').Room;
 
@@ -44,7 +45,27 @@ app.post('/newroom', (req, res, next) => {
 });
 
 app.post('/newuser', (req, res, next) => {
-  res.send(req.body);
+  Room.findById(req.body.user.roomId, function(err, room) {
+    if (err) {
+    res.status(500).send(err);
+    } else {
+      var userId = new mongoose.Types.ObjectId;
+      var userInfo = {
+        name: req.body.user.name,
+        id: userId
+      };
+      room.users.push(userInfo);
+
+      room.save(function (err, changedRoom) {
+          if (err) {
+              res.status(500).send(err)
+          } else {
+            res.send(changedRoom);
+          }
+      });
+    }
+    console.log(room)
+  });
 });
 
 app.use((err, req, res, next) => {
