@@ -14,18 +14,28 @@ class Room extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (!this.props.user.name && nextProps.user.name) {
       socket = io('http://localhost:3000');
+
       socket.on('event', data => {
+        console.log('componentWillReceiveProps socket:on')
         console.log(data)
       });
 
-      this.props.getUsers(this.props.room._id)
+      this.props.getUsers({roomId: this.props.room._id, io: socket})
     }
   }
 
   componentWillMount() {
-    console.log(this.props.location.query.id)
     if (!this.props.room.name) {
       this.props.getRoom(this.props.location.query.id)
+    }
+  }
+
+  componentWillUpdate() {
+    if (socket) {
+      socket.on('send room', data => {
+        console.log(data);
+        this.props.addUsers(data.users)
+      });
     }
   }
 
@@ -64,6 +74,9 @@ function mapDispatchToProps(dispatch) {
     },
     getRoom(roomId) {
       dispatch(roomActions.getRoomAsync(roomId));
+    },
+    addUsers(users) {
+      dispatch(userActions.addUsers(users))
     }
   };
 }

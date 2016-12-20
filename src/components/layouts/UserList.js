@@ -9,9 +9,11 @@ class UserList extends React.Component {
   }
 
   render() {
-    console.log(this.props.users)
+    // console.log(this.props.users)
+    console.log('User list render')
     return (
       <ul>
+        <div>test</div>
         <div>{this.generateList(this.props.users)}</div>
       </ul>
     )

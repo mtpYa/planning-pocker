@@ -8,9 +8,9 @@ function createUser(user) {
   }
 }
 
-function getUsers(users) {
+function addUsers(users) {
   return {
-    type: ActionTypes.GET_USERS,
+    type: ActionTypes.ADD_USERS,
     users
   }
 }
@@ -23,15 +23,16 @@ function createUserAsync(newUser) {
   };
 }
 
-function getUsersAsync(roomId) {
+function getUsersAsync(obj) {
   return (dispatch) => {
-    return RoomApi.getUsers(roomId)
-      .then(data => dispatch(getUsers(data)))
-      .catch(err => console.log(err));
+    return RoomApi.getUsers(obj)
+      // .then(data => dispatch(getUsers(data)))
+      // .catch(err => console.log(err));
   };
 }
 
 export default {
   createUserAsync,
-  getUsersAsync
+  getUsersAsync,
+  addUsers
 }

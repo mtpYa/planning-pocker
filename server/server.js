@@ -86,7 +86,7 @@ app.post('/newuser', (req, res, next) => {
           if (err) {
               res.status(500).send(err)
           } else {
-            res.send(changedRoom);
+            res.send(userInfo);
           }
       });
     }
