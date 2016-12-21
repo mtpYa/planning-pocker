@@ -1,17 +1,13 @@
 const Room = require('./mongoose.conf').Room;
 
-module.exports = function(server) {
-  var io = require('socket.io')(server);
+module.exports = (server) => {
+  const io = require('socket.io')(server);
 
-  io.on('connection', function (socket) {
-    socket.on('event', function(roomId) {
-      console.log(roomId);
-
-      Room.findById(roomId, function(err, room) {
-        console.log(room);
-        io.emit('send room', room)
+  io.on('connection', (socket) => {
+    socket.on('get_users', (roomId) => {
+      Room.findById(roomId, (err, room) => {
+        io.emit('send_room', room)
       });
-
     });
   });
 }

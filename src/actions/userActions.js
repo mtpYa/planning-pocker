@@ -26,8 +26,6 @@ function createUserAsync(newUser) {
 function getUsersAsync(obj) {
   return (dispatch) => {
     return RoomApi.getUsers(obj)
-      // .then(data => dispatch(getUsers(data)))
-      // .catch(err => console.log(err));
   };
 }
 

@@ -4,8 +4,8 @@ import { hashHistory } from 'react-router';
 
 import roomActions from '../../actions/roomActions';
 
-import Button from '../forms/Button.js';
-import Input from '../forms/Input.js';
+import Button from '../elements/forms/Button';
+import Input from '../elements/forms/Input';
 
 class CreateRoom extends React.Component {
 

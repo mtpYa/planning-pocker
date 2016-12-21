@@ -23,8 +23,6 @@ function createRoomAsync(newRoom) {
   };
 }
 
-
-
 function getRoomAsync(oldRoom) {
   return (dispatch) => {
     return RoomApi.getRoom(oldRoom)

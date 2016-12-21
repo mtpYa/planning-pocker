@@ -24,10 +24,7 @@ function createUser(user) {
 }
 
 function getUsers(obj) {
-  console.log('roomApi: getUser');
-  obj.io.emit('event', obj.roomId)
-  // return fetch('/allusers/' + roomId)
-  //   .then(response => response.json());
+  obj.io.emit('get_users', obj.roomId)
 }
 
 function getRoom(roomId) {

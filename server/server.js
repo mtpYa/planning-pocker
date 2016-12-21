@@ -34,7 +34,7 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
 });
 
 app.post('/newroom', (req, res, next) => {
-  var newRoom = new Room(req.body.room);
+  const newRoom = new Room(req.body.room);
   newRoom.save((err, createdRoom) => {
     if (err) {
       next(err);
@@ -45,23 +45,18 @@ app.post('/newroom', (req, res, next) => {
 });
 
 app.get('/allusers/:id', (req, res, next) => {
-  console.log(req.params.id)
-  var roomId = req.params.id;
-
-  Room.findById(roomId, function(err, room) {
+  const roomId = req.params.id;
+  Room.findById(roomId, (err, room) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      console.log(room.users);
       res.send(room.users);
     }
   });
 });
 
 app.get('/oldroom/:id', (req, res, next) => {
-  console.log(req.params.id)
-
-  Room.findById(req.params.id, function(err, oldRoom) {
+  Room.findById(req.params.id, (err, oldRoom) => {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -71,7 +66,7 @@ app.get('/oldroom/:id', (req, res, next) => {
 });
 
 app.post('/newuser', (req, res, next) => {
-  Room.findById(req.body.user.roomId, function(err, room) {
+  Room.findById(req.body.user.roomId, (err, room) => {
     if (err) {
     res.status(500).send(err);
     } else {
@@ -82,7 +77,7 @@ app.post('/newuser', (req, res, next) => {
       };
       room.users.push(userInfo);
 
-      room.save(function (err, changedRoom) {
+      room.save( (err, changedRoom) => {
           if (err) {
               res.status(500).send(err)
           } else {
@@ -90,12 +85,10 @@ app.post('/newuser', (req, res, next) => {
           }
       });
     }
-    // console.log(room)
   });
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack)
   res.status(500).send('Error: ' + err.stack);
 })
 

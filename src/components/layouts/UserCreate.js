@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import Button from '../forms/Button.js';
-import Input from '../forms/Input.js';
+import Button from '../elements/forms/Button';
+import Input from '../elements/forms/Input';
 
 import userActions from '../../actions/userActions';
 
-class ModuleUserCreate extends React.Component {
+class UserCreate extends React.Component {
 
   constructor(props) {
     super(props);
@@ -61,4 +61,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(ModuleUserCreate);
+export default connect(null, mapDispatchToProps)(UserCreate);

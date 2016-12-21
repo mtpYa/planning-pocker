@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 let socket;
 
-import ModuleUserCreate from '../layouts/ModuleUserCreate';
-import UserList from '../layouts/UserList';
+import UserCreate from '../layouts/UserCreate';
+import List from '../elements/lists/List.js';
 import userActions from '../../actions/userActions';
 import roomActions from '../../actions/roomActions';
 
@@ -14,27 +14,20 @@ class Room extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (!this.props.user.name && nextProps.user.name) {
       socket = io('http://localhost:3000');
-
-      socket.on('event', data => {
-        console.log('componentWillReceiveProps socket:on')
-        console.log(data)
-      });
-
-      this.props.getUsers({roomId: this.props.room._id, io: socket})
+      this.props.getUsers({roomId: this.props.room._id, io: socket});
     }
   }
 
   componentWillMount() {
     if (!this.props.room.name) {
-      this.props.getRoom(this.props.location.query.id)
+      this.props.getRoom(this.props.location.query.id);
     }
   }
 
   componentWillUpdate() {
     if (socket) {
-      socket.on('send room', data => {
-        console.log(data);
-        this.props.addUsers(data.users)
+      socket.on('send_room', data => {
+        this.props.addUsers(data.users);
       });
     }
   }
@@ -50,11 +43,11 @@ class Room extends React.Component {
   }
 
   toogleModalWindow() {
-    return this.props.user.name ? null : <ModuleUserCreate {...this.props} />
+    return this.props.user.name ? null : <UserCreate {...this.props} />
   }
 
   showUsersList() {
-    return this.props.users.length == 0 ? null : <UserList users = {this.props.users} />
+    return this.props.users.length == 0 ? null : <List elems = {this.props.users} />
   }
 
 }
@@ -76,7 +69,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(roomActions.getRoomAsync(roomId));
     },
     addUsers(users) {
-      dispatch(userActions.addUsers(users))
+      dispatch(userActions.addUsers(users));
     }
   };
 }
