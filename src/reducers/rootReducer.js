@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import roomReducer from './roomReducer.js';
+import room from './roomReducer.js';
+import user from './userReducer.js';
 
 const appReducer = combineReducers({
-  room: roomReducer
+  room,
+  user
 });
 
 export default appReducer;

@@ -8,6 +8,13 @@ function createRoom(room) {
   }
 }
 
+function getRoom(room) {
+  return {
+    type: ActionTypes.GET_ROOM,
+    room
+  }
+}
+
 function createRoomAsync(newRoom) {
   return (dispatch) => {
     return RoomApi.createRoom(newRoom)
@@ -16,6 +23,15 @@ function createRoomAsync(newRoom) {
   };
 }
 
+function getRoomAsync(oldRoom) {
+  return (dispatch) => {
+    return RoomApi.getRoom(oldRoom)
+      .then(data => dispatch(getRoom(data)))
+      .catch(err => console.log(err));
+  };
+}
+
 export default {
-  createRoomAsync
+  createRoomAsync,
+  getRoomAsync
 }

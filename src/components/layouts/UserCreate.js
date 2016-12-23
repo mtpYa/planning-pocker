@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
-
-import roomActions from '../../actions/roomActions';
+import { Link } from 'react-router';
 
 import Button from '../elements/forms/Button';
 import Input from '../elements/forms/Input';
 
-class CreateRoom extends React.Component {
+import userActions from '../../actions/userActions';
+
+class UserCreate extends React.Component {
 
   constructor(props) {
     super(props);
@@ -20,33 +20,30 @@ class CreateRoom extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentWillUpdate(nextProps) {
-    if (nextProps.room._id) {
-      hashHistory.push({ pathname: 'room/' + nextProps.room.name, query: {id: nextProps.room._id}});
-    }
-  }
-
   handleChange(e) {
     this.setState({value: e.target.value})
   }
 
   handleClick(e) {
     e.preventDefault();
-    this.props.createRoom({name: this.state.value});
+    this.props.createUser({
+      name: this.state.value,
+      roomId: this.props.location.query.id
+    });
   }
 
   render() {
     return (
       <div>
         <Input
-          placeholder="enter room name"
-          name="room-name"
+          placeholder="enter your name"
+          name="user-name"
           type="text"
           value={this.state.value}
           onChangeHandler={this.handleChange}
         />
         <Button
-          value="Create Room"
+          value="Create User"
           type="submit"
           onHandleClick={this.handleClick}
         />
@@ -56,18 +53,12 @@ class CreateRoom extends React.Component {
 
 }
 
-function mapStateToProps(state) {
-  return {
-    room: state.room.currRoom
-  };
-}
-
 function mapDispatchToProps(dispatch) {
   return {
-    createRoom(newRoom) {
-      dispatch(roomActions.createRoomAsync(newRoom));
+    createUser(newUser) {
+      dispatch(userActions.createUserAsync(newUser));
     }
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateRoom);
+export default connect(null, mapDispatchToProps)(UserCreate);

@@ -3,12 +3,16 @@ const passport = require('passport');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const mongoose = require('mongoose')
 const Account = require('./mongoose.conf').Account;
 const Room = require('./mongoose.conf').Room;
 
 require('./passport.conf')(passport, Account);
 
 const app = express();
+
+const server = require('http').Server(app);
+require('./sockets')(server);
 
 app.use(morgan('tiny'));
 
@@ -30,7 +34,7 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
 });
 
 app.post('/newroom', (req, res, next) => {
-  var newRoom = new Room(req.body.room);
+  const newRoom = new Room(req.body.room);
   newRoom.save((err, createdRoom) => {
     if (err) {
       next(err);
@@ -40,11 +44,54 @@ app.post('/newroom', (req, res, next) => {
   });
 });
 
+app.get('/allusers/:id', (req, res, next) => {
+  const roomId = req.params.id;
+  Room.findById(roomId, (err, room) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(room.users);
+    }
+  });
+});
+
+app.get('/oldroom/:id', (req, res, next) => {
+  Room.findById(req.params.id, (err, oldRoom) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(oldRoom);
+    }
+  });
+});
+
+app.post('/newuser', (req, res, next) => {
+  Room.findById(req.body.user.roomId, (err, room) => {
+    if (err) {
+    res.status(500).send(err);
+    } else {
+      var userId = new mongoose.Types.ObjectId;
+      var userInfo = {
+        name: req.body.user.name,
+        id: userId
+      };
+      room.users.push(userInfo);
+
+      room.save( (err, changedRoom) => {
+          if (err) {
+              res.status(500).send(err)
+          } else {
+            res.send(userInfo);
+          }
+      });
+    }
+  });
+});
+
 app.use((err, req, res, next) => {
-  console.error(err.stack)
   res.status(500).send('Error: ' + err.stack);
 })
 
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log('Server is listening on port 3000')
 });
