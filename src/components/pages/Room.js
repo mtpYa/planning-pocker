@@ -13,7 +13,7 @@ class Room extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.user.name && nextProps.user.name) {
-      socket = io('http://localhost:3000');
+      socket = io('/');
       this.props.getUsers({roomId: this.props.room._id, io: socket});
     }
   }
