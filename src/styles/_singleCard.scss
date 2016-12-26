@@ -1,0 +1,11 @@
+.singleCard {
+  width: 100px;
+  height: 150px;
+  background: #5C94A0;
+  border: 5px solid #2F35AE;
+  border-radius: 10px;
+
+  &.selected {
+    border: 5px solid #8B0000;
+  }
+}
