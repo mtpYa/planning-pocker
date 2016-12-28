@@ -8,6 +8,13 @@ function createUser(user) {
   }
 }
 
+function removeUser(userId) {
+  return {
+    type: ActionTypes.REMOVE_USER,
+    userId
+  }
+}
+
 function addUsers(users) {
   return {
     type: ActionTypes.ADD_USERS,
@@ -32,5 +39,6 @@ function getUsersAsync(obj) {
 export default {
   createUserAsync,
   getUsersAsync,
-  addUsers
+  addUsers,
+  removeUser
 }

@@ -5,8 +5,8 @@ import io from 'socket.io-client';
 let socket;
 
 import UserCreate from '../layouts/UserCreate';
-import List from '../elements/lists/List.js';
 import CardContainer from '../layouts/cardContainer';
+import UsersList from '../layouts/UsersList';
 
 import userActions from '../../actions/userActions';
 import roomActions from '../../actions/roomActions';
@@ -17,6 +17,7 @@ class Room extends React.Component {
 
     this.toogleModalWindow = this.toogleModalWindow.bind(this);
     this.showUsersList = this.showUsersList.bind(this);
+    this.showCardsList = this.showCardsList.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,21 +33,13 @@ class Room extends React.Component {
     }
   }
 
-  componentWillUpdate() {
-    if (socket) {
-      socket.on('send_room', data => {
-        this.props.addUsers(data.users);
-      });
-    }
-  }
-
   render() {
     return (
       <div>
         <h1>Room: {this.props.room.name}</h1>
         {this.toogleModalWindow()}
         {this.showUsersList()}
-        <CardContainer />
+        {this.showCardsList()}
       </div>
     )
   }
@@ -56,21 +49,20 @@ class Room extends React.Component {
   }
 
   showUsersList() {
-    return this.props.users.length == 0
-      ? null
-      : <List
-          elems={this.props.users}
-          elemName='listItem'
-          listClass='horizontal_list'
-          />
+    return socket
+      ? <UsersList socket={socket} />
+      : null
+  }
+
+  showCardsList() {
+    return this.props.user.name ? <CardContainer /> : null;
   }
 }
 
 function mapStateToProps(state) {
   return {
     room: state.room.currRoom,
-    user: state.user.currUser,
-    users: state.user.users
+    user: state.user.currUser
   };
 }
 
@@ -81,9 +73,6 @@ function mapDispatchToProps(dispatch) {
     },
     getRoom(roomId) {
       dispatch(roomActions.getRoomAsync(roomId));
-    },
-    addUsers(users) {
-      dispatch(userActions.addUsers(users));
     }
   };
 }
