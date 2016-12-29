@@ -9,12 +9,10 @@ const Room = require('./mongoose.conf').Room;
 
 require('./passport.conf')(passport, Account);
 
-var currUserInfo = {};
-
 const app = express();
 
 const server = require('http').Server(app);
-require('./sockets')(server, currUserInfo);
+require('./sockets')(server);
 
 app.use(morgan('tiny'));
 
@@ -41,7 +39,6 @@ app.post('/newroom', (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      currUserInfo.roomId = createdRoom.id;
       res.send(createdRoom);
     }
   });
@@ -84,7 +81,6 @@ app.post('/newuser', (req, res, next) => {
           if (err) {
               res.status(500).send(err)
           } else {
-            currUserInfo.userId = userId;
             res.send(userInfo);
           }
       });
