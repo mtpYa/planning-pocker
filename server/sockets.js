@@ -15,6 +15,39 @@ module.exports = (server) => {
       });
     });
 
+    socket.on('startTimer', (roomId) => {
+      var timeCount = 21;
+
+      Room.findById(roomId, (err, room) => {
+        room.results = [];
+        room.save();
+      });
+
+      const timePointer = setInterval(() => {
+        if (timeCount >= 0) {
+          io.sockets.emit('timerCount', timeCount);
+          timeCount--;
+        } else {
+          clearInterval(timePointer);
+          io.sockets.emit('getUserAnswer');
+        }
+      }, 1000);
+    });
+
+    socket.on('userChoise', (userInfo) => {
+      Room.findById(userInfo.roomId, (err, room) => {
+        var userChoise = {
+          id: userInfo.userId,
+          value: userInfo.value
+        };
+        room.results.push(userChoise);
+
+        room.save((err, changedRoom) => {
+          //TODO: Compare room.results with room.users and emit event when they are equal
+        });
+      });
+    });
+
     socket.on('disconnect', () => {
       Room.findById(userInfo.roomId, (err, room) => {
         var elemIdx = room.users.map(elem => elem._id).indexOf(userInfo.userId);

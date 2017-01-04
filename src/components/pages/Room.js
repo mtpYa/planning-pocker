@@ -7,6 +7,8 @@ let socket;
 import UserCreate from '../layouts/UserCreate';
 import CardContainer from '../layouts/cardContainer';
 import UsersList from '../layouts/UsersList';
+import Button from '../elements/forms/Button';
+import Timer from '../elements/Timer';
 
 import userActions from '../../actions/userActions';
 import roomActions from '../../actions/roomActions';
@@ -18,6 +20,9 @@ class Room extends React.Component {
     this.toogleModalWindow = this.toogleModalWindow.bind(this);
     this.showUsersList = this.showUsersList.bind(this);
     this.showCardsList = this.showCardsList.bind(this);
+    this.handleTimerClick = this.handleTimerClick.bind(this);
+    this.showTimerInfo = this.showTimerInfo.bind(this);
+    this.userResponse = this.userResponse.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,10 +38,23 @@ class Room extends React.Component {
     }
   }
 
+  handleTimerClick() {
+    socket.emit('startTimer', this.props.room._id);
+  }
+
+  userResponse() {
+    socket.emit('userChoise', {
+      roomId: this.props.room._id,
+      userId: this.props.user.id,
+      value: this.props.selectedCard
+    });
+  }
+
   render() {
     return (
       <div>
         <h1>Room: {this.props.room.name}</h1>
+        {this.showTimerInfo()}
         {this.toogleModalWindow()}
         {this.showUsersList()}
         {this.showCardsList()}
@@ -57,12 +75,32 @@ class Room extends React.Component {
   showCardsList() {
     return this.props.user.name ? <CardContainer /> : null;
   }
+
+  showTimerInfo() {
+    return socket
+      ? <div>
+          <Timer
+            socket={socket}
+            userChoiseResponse={this.userResponse}
+          />
+          { this.props.user.isAdmin
+            ? <Button
+                value="Start Timer"
+                type="button"
+                onHandleClick={this.handleTimerClick}
+              />
+            : null
+          }
+        </div>
+      : null
+  }
 }
 
 function mapStateToProps(state) {
   return {
     room: state.room.currRoom,
-    user: state.user.currUser
+    user: state.user.currUser,
+    selectedCard: state.cards.selectedCard
   };
 }
 

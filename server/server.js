@@ -73,7 +73,8 @@ app.post('/newuser', (req, res, next) => {
       var userId = new mongoose.Types.ObjectId;
       var userInfo = {
         name: req.body.user.name,
-        id: userId
+        id: userId,
+        isAdmin: room.users.length ? false : true
       };
       room.users.push(userInfo);
 
