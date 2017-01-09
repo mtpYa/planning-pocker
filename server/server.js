@@ -68,12 +68,13 @@ app.get('/oldroom/:id', (req, res, next) => {
 app.post('/newuser', (req, res, next) => {
   Room.findById(req.body.user.roomId, (err, room) => {
     if (err) {
-    res.status(500).send(err);
+      res.status(500).send(err);
     } else {
       var userId = new mongoose.Types.ObjectId;
       var userInfo = {
         name: req.body.user.name,
-        id: userId
+        id: userId,
+        isAdmin: room.users.length ? false : true
       };
       room.users.push(userInfo);
 

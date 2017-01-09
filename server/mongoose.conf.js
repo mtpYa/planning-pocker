@@ -32,7 +32,8 @@ const Account = mongoose.model('Account', accountSchema);
 
 const roomSchema = mongoose.Schema({
   name: String,
-  users: Array
+  users: Array,
+  results: Array
 });
 
 const Room = mongoose.model('Room', roomSchema);
