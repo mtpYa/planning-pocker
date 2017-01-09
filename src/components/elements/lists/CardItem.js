@@ -1,6 +1,7 @@
 import React from 'react';
 
 class SingleCard extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -25,6 +26,7 @@ class SingleCard extends React.Component {
       </li>
     );
   }
+
 }
 
 export default SingleCard;

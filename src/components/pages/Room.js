@@ -14,6 +14,7 @@ import userActions from '../../actions/userActions';
 import roomActions from '../../actions/roomActions';
 
 class Room extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -94,6 +95,7 @@ class Room extends React.Component {
         </div>
       : null
   }
+
 }
 
 function mapStateToProps(state) {

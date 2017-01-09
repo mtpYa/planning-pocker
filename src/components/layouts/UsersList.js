@@ -26,6 +26,7 @@ class UsersList extends React.Component {
           listClass='horizontal_list'
           />
   }
+
 }
 
 function mapStateToProps(state) {
