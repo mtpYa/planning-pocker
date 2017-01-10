@@ -48,6 +48,10 @@ module.exports = (server) => {
       });
     });
 
+    socket.on('newMessage', (message) => {
+      io.emit('showMessage', message)
+    });
+
     socket.on('disconnect', () => {
       Room.findById(userInfo.roomId, (err, room) => {
         var elemIdx = room.users.map(elem => elem._id).indexOf(userInfo.userId);
