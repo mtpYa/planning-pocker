@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux';
 
-import room from './roomReducer.js';
-import user from './userReducer.js';
+import room from './roomReducer';
+import user from './userReducer';
 import cards from './cardsReducer';
+import chat from './chatReducer';
 
 const appReducer = combineReducers({
   room,
   user,
-  cards
+  cards,
+  chat
 });
 
 export default appReducer;

@@ -5,10 +5,11 @@ import io from 'socket.io-client';
 let socket;
 
 import UserCreate from '../layouts/UserCreate';
-import CardContainer from '../layouts/cardContainer';
+import CardContainer from '../layouts/CardContainer';
 import UsersList from '../layouts/UsersList';
 import Button from '../elements/forms/Button';
 import Timer from '../elements/Timer';
+import ChatBox from '../layouts/ChatBox';
 
 import userActions from '../../actions/userActions';
 import roomActions from '../../actions/roomActions';
@@ -23,7 +24,8 @@ class Room extends React.Component {
     this.showCardsList = this.showCardsList.bind(this);
     this.handleTimerClick = this.handleTimerClick.bind(this);
     this.showTimerInfo = this.showTimerInfo.bind(this);
-    this.userResponse = this.userResponse.bind(this)
+    this.userResponse = this.userResponse.bind(this);
+    this.showChat = this.showChat.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,6 +61,7 @@ class Room extends React.Component {
         {this.toogleModalWindow()}
         {this.showUsersList()}
         {this.showCardsList()}
+        {this.showChat()}
       </div>
     )
   }
@@ -70,6 +73,12 @@ class Room extends React.Component {
   showUsersList() {
     return socket
       ? <UsersList socket={socket} />
+      : null
+  }
+
+  showChat() {
+    return socket
+      ? <ChatBox socket={socket} />
       : null
   }
 
