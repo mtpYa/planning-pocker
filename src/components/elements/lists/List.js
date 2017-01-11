@@ -1,5 +1,5 @@
 import React from 'react';
-import ListItem from './ListItem';
+import UserItem from './UserItem';
 import CardItem from './CardItem';
 
 class List extends React.Component {
@@ -23,11 +23,11 @@ class List extends React.Component {
 
   chooseElem(item, idx) {
     switch (this.props.elemName) {
-      case 'listItem':
+      case 'userItem':
         return (
-          <ListItem
+          <UserItem
             key={item.id}
-            elem={item.name}
+            userName={item.name}
             value={item.value}
             />
         )

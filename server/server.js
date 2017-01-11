@@ -74,8 +74,7 @@ app.post('/newuser', (req, res, next) => {
       var userInfo = {
         name: req.body.user.name,
         id: userId,
-        isAdmin: room.users.length ? false : true,
-        value: null
+        isAdmin: room.users.length ? false : true
       };
       room.users.push(userInfo);
 

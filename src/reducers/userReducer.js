@@ -13,14 +13,8 @@ function userReducer(state = initialState, action) {
       return Object.assign({}, state, { currUser: action.user });
     case ActionTypes.ADD_USERS:
       return Object.assign({}, state, { users: action.users });
-
-
     case ActionTypes.ADD_VALUE:
-      console.log(state.users);
-      console.log(action.userValue);
-
       newUsers = JSON.parse(JSON.stringify(state.users));
-
       newUsers.forEach(elem => {
         action.userValue.forEach( item => {
           if (elem.id === item.id) {
@@ -29,8 +23,12 @@ function userReducer(state = initialState, action) {
         })
       })
       return Object.assign({}, state, { users: newUsers });
-
-
+    case ActionTypes.DROP_VALUES:
+      newUsers = JSON.parse(JSON.stringify(state.users));
+      newUsers.forEach(elem => {
+        elem.value = null;
+      })
+      return Object.assign({}, state, { users: newUsers });
     case ActionTypes.REMOVE_USER:
       let userIdx = state.users.map(elem => elem.id).indexOf(action.userId);
       newUsers = JSON.parse(JSON.stringify(state.users));

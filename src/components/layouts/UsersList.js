@@ -8,6 +8,10 @@ import List from '../elements/lists/List.js';
 class UsersList extends React.Component {
 
   componentDidMount() {
+    this.props.socket.on('dropValues', () => {
+      this.props.dropValues();
+    });
+
     this.props.socket.on('send_room', data => {
       this.props.addUsers(data.users);
     });
@@ -26,7 +30,7 @@ class UsersList extends React.Component {
       ? null
       : <List
           elems={this.props.users}
-          elemName='listItem'
+          elemName='userItem'
           listClass='horizontal_list'
           />
   }
@@ -49,6 +53,9 @@ function mapDispatchToProps(dispatch) {
     },
     addValue(userValue) {
       dispatch(userActions.addValue(userValue));
+    },
+    dropValues() {
+      dispatch(userActions.dropValues());
     }
   };
 }

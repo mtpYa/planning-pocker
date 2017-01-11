@@ -18,9 +18,12 @@ module.exports = (server) => {
     socket.on('startTimer', (roomId) => {
       var timeCount = 2;
 
+      io.sockets.emit('dropValues');
+
       Room.findById(roomId, (err, room) => {
         room.results = [];
         room.save();
+        console.log(room)
       });
 
       const timePointer = setInterval(() => {
@@ -43,7 +46,6 @@ module.exports = (server) => {
         room.results.push(userChoise);
 
         room.save((err, changedRoom) => {
-          //TODO: Compare room.results with room.users and emit event when they are equal
           Room.findById(userInfo.roomId, (err, room) => {
             if (room.results.length == room.users.length) {
               console.log('they are equal');
