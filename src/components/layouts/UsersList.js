@@ -15,6 +15,10 @@ class UsersList extends React.Component {
     this.props.socket.on('userDisconnect', data => {
       this.props.removeUser(data.userId);
     });
+
+    this.props.socket.on('showResults', data => {
+      this.props.addValue(data);
+    });
   }
 
   render() {
@@ -42,6 +46,9 @@ function mapDispatchToProps(dispatch) {
     },
     removeUser(userId) {
       dispatch(userActions.removeUser(userId));
+    },
+    addValue(userValue) {
+      dispatch(userActions.addValue(userValue));
     }
   };
 }

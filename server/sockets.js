@@ -16,7 +16,7 @@ module.exports = (server) => {
     });
 
     socket.on('startTimer', (roomId) => {
-      var timeCount = 21;
+      var timeCount = 2;
 
       Room.findById(roomId, (err, room) => {
         room.results = [];
@@ -44,6 +44,12 @@ module.exports = (server) => {
 
         room.save((err, changedRoom) => {
           //TODO: Compare room.results with room.users and emit event when they are equal
+          Room.findById(userInfo.roomId, (err, room) => {
+            if (room.results.length == room.users.length) {
+              console.log('they are equal');
+              io.sockets.emit('showResults', room.results);
+            }
+          });
         });
       });
     });

@@ -28,6 +28,7 @@ class List extends React.Component {
           <ListItem
             key={item.id}
             elem={item.name}
+            value={item.value}
             />
         )
         break;
