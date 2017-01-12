@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import userActions from '../../actions/userActions';
+import cardsActions from '../../actions/cardsActions';
 
 import List from '../elements/lists/List.js';
 
@@ -21,6 +22,9 @@ class UsersList extends React.Component {
     });
 
     this.props.socket.on('showResults', data => {
+      let results = data.map(item => item.value).filter(item => item !== -1)
+      let extraValues = {min: Math.min(...results), max: Math.max(...results)};
+      this.props.addExtraValues(extraValues);
       this.props.addValue(data);
     });
   }
@@ -32,6 +36,7 @@ class UsersList extends React.Component {
           elems={this.props.users}
           elemName='userItem'
           listClass='horizontal_list'
+          extraValues={this.props.extraValues}
           />
   }
 
@@ -39,7 +44,8 @@ class UsersList extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.user.users
+    users: state.user.users,
+    extraValues: state.cards.extraValues
   };
 }
 
@@ -56,6 +62,9 @@ function mapDispatchToProps(dispatch) {
     },
     dropValues() {
       dispatch(userActions.dropValues());
+    },
+    addExtraValues(extraValues) {
+      dispatch(cardsActions.addExtraValues(extraValues));
     }
   };
 }

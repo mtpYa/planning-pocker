@@ -29,6 +29,7 @@ class List extends React.Component {
             key={item.id}
             userName={item.name}
             value={item.value}
+            extraValues={this.props.extraValues}
             />
         )
         break;
