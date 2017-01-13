@@ -9,3 +9,44 @@
     border: 5px solid #8B0000;
   }
 }
+
+
+.flip-container {
+	perspective: 1000px;
+}
+
+.flip-container-rotated {
+	transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+	width: 100px;
+	height: 150px;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.front {
+	z-index: 2;
+  background: red;
+}
+
+.back {
+	transform: rotateY(180deg);
+  background: green;
+  font-size: 30px;
+  text-align: center;
+}

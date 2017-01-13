@@ -7,6 +7,14 @@ function setSelected(value) {
   }
 }
 
+function addExtraValues(extraValues) {
+  return {
+    type: ActionTypes.ADD_EXTRAVALUES,
+    extraValues
+  }
+}
+
 export default {
-  setSelected
+  setSelected,
+  addExtraValues
 }

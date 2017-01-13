@@ -22,6 +22,19 @@ function addUsers(users) {
   }
 }
 
+function addValue(userValue) {
+  return {
+    type: ActionTypes.ADD_VALUE,
+    userValue
+  }
+}
+
+function dropValues() {
+  return {
+    type: ActionTypes.DROP_VALUES
+  }
+}
+
 function createUserAsync(newUser) {
   return (dispatch) => {
     return RoomApi.createUser(newUser)
@@ -40,5 +53,7 @@ export default {
   createUserAsync,
   getUsersAsync,
   addUsers,
-  removeUser
+  removeUser,
+  addValue,
+  dropValues
 }
