@@ -23,7 +23,6 @@ module.exports = (server) => {
       Room.findById(roomId, (err, room) => {
         room.results = [];
         room.save();
-        console.log(room)
       });
 
       const timePointer = setInterval(() => {
@@ -47,8 +46,7 @@ module.exports = (server) => {
 
         room.save((err, changedRoom) => {
           Room.findById(userInfo.roomId, (err, room) => {
-            if (room.results.length == room.users.length) {
-              console.log('they are equal');
+            if (room.results.length === room.users.length) {
               io.sockets.emit('showResults', room.results);
             }
           });

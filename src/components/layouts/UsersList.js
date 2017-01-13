@@ -22,7 +22,10 @@ class UsersList extends React.Component {
     });
 
     this.props.socket.on('showResults', data => {
-      let results = data.map(item => item.value).filter(item => item !== -1)
+      let results = data.reduce((prev, item) => {
+        item.value === -1 ? prev : prev.push(item.value)
+        return prev
+      }, []);
       let extraValues = {min: Math.min(...results), max: Math.max(...results)};
       this.props.addExtraValues(extraValues);
       this.props.addValue(data);
